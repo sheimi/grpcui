@@ -133,6 +133,15 @@
     {{- end}}
     ];
 
+    const url = new URL(window.location.href);
+    const accessToken = url.searchParams.get('accessToken');
+    if (accessToken) {
+      headers.push({
+        'name': 'authorization',
+        'value': 'Bearer ' + accessToken,
+      })
+    }
+
     initGRPCForm(services, svcDescs, mtdDescs, '{{ .InvokeURI }}', '{{ .MetadataURI }}', {{ .Debug }}, headers);
 })();
 </script>
